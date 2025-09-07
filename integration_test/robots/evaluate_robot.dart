@@ -1,4 +1,3 @@
-import 'package:calculator_app/screens/home/widgets/formula_field_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,7 +23,7 @@ class EvaluateRobot {
   }
 
   // Tap Button
-  Future<void> tabButton() async {
+  Future<void> tapButton() async {
     final actionButtonFinder = find.byKey(actionButtonKey);
     await tester.tap(actionButtonFinder);
     await tester.pump();
