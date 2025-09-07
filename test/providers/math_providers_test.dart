@@ -2,7 +2,8 @@ import 'package:calculator_app/providers/math_provider.dart';
 import 'package:calculator_app/services/math_expression.dart';
 import 'package:calculator_app/static/evaluate_formula_state.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
+
 
 class MockMathExpression extends Mock implements MathExpression {}
 
@@ -28,45 +29,55 @@ void main() {
 
     // Success Formula
     test('should return SuccessEvaluate type when formula is right.', () async {
+      // arrange
       when(() => mathExpression.evaluate(successFormula))
           .thenReturn(resultOfSuccess);
 
+      // act
       mathProvider.evaluate(successFormula);
       final state = mathProvider.state;
 
+      // assert
       expect(state, isA<SuccessEvaluate>());
     });
 
     test('should return 75 when formula is right.', () async {
+      // arrange
       when(() => mathExpression.evaluate(successFormula))
           .thenReturn(resultOfSuccess);
 
+      // act
       mathProvider.evaluate(successFormula);
       final state = mathProvider.state;
 
+      // assert
       expect(state, equals(SuccessEvaluate(resultOfSuccess)));
     });
 
     // Failed Formula
     test('should return FailedEvaluate type when formula is wrong.', () {
+      // arrange
       when(() => mathExpression.evaluate(failedFormula))
           .thenThrow(resultOfFailed);
 
+      // act
       mathProvider.evaluate(failedFormula);
-
       final state = mathProvider.state;
+
+      // assert
       expect(state, isA<FailedEvaluate>());
     });
 
-    test(
-        'should return "Cannot evaluate that formula." Error when formula is wrong.',
-        () {
+    test('should return "Cannot evaluate that formula." Error when formula is wrong.',() {
+      // arrange
       when(() => mathExpression.evaluate(failedFormula))
           .thenThrow(resultOfFailed);
 
+      // act
       mathProvider.evaluate(failedFormula);
-
       final state = mathProvider.state;
+
+      // assert
       expect(state, FailedEvaluate(resultOfFailed));
     });
   });
